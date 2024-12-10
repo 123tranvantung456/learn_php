@@ -9,6 +9,7 @@
 
     public function login($username, $password) {
       $Result = $this->getDetail($username);
+
       if($Result){
         if($Result->getTwo() == $password){
           return $Result;
@@ -18,22 +19,22 @@
     }
 
     public function getAll(){
-      $sql = "SELECT * FROM tb";
+      $sql = "SELECT * FROM tb INNER JOIN table1 ON tb.five = table1.one1";
       $result = mysqli_query($this->connection, $sql);
       $Arrays = [];
-      while($row = mysqli_fetch_assoc($result)){
+      while($row = mysqli_fetch_array($result)){
         $Arrays [] = new E_($row['one'], $row['two'], $row['three'],
-         $row['four'], $row['five']);
+         $row['four'], new E_1($row['one1'], $row['two1']), $row['six']);
       }
       return $Arrays;
     }
 
     public function getDetail($one){
-      $sql = "SELECT * FROM tb WHERE `one` = '" .$one. "'";
+      $sql = "SELECT * FROM tb INNER JOIN table1 ON tb.five = table1.one1 WHERE `one` = '" .$one. "'";
       $result = mysqli_query($this->connection, $sql);
       if($row = mysqli_fetch_assoc($result)){
         $RsDetail = new E_($row['one'], $row['two'], $row['three'],
-         $row['four'], $row['five']);
+        $row['four'], new E_1($row['one1'], $row['two1']), $row['six']);
         return $RsDetail;
       }
       return null;
@@ -44,12 +45,13 @@
       $two = $bean->getTwo();
       $three = $bean->getThree();
       $four = $bean->getFour();
-      $five = $bean->getFive();
+      $five = $bean->getFive()->getOne1();
+      $six = $bean->getSix();
 
-      $sql = "INSERT INTO tb (one, two, three, four, five) VALUES (?, ?, ?, ?, ?)";
+      $sql = "INSERT INTO tb (one, two, three, four, five, six) VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = $this->connection->prepare($sql);
   
-      $stmt->bind_param("ssisi", $one, $two, $three, $four, $five);
+      $stmt->bind_param("ssisii", $one, $two, $three, $four, $five, $six);
   
       $stmt->execute();
   
@@ -69,12 +71,13 @@
       $two = $bean->getTwo();
       $three = $bean->getThree();
       $four = $bean->getFour();
-      $five = $bean->getFive();
+      $five = $bean->getFive()->getOne1();
+      $six = $bean->getSix();
 
-      $sql = "UPDATE tb SET two = ?, three = ?, four = ?, five = ? WHERE one = ?";
+      $sql = "UPDATE tb SET two = ?, three = ?, four = ?, five = ?, six = ? WHERE one = ?";
       $stmt = $this->connection->prepare($sql);
 
-      $stmt->bind_param("sisis",$two, $three, $four, $five, $one);
+      $stmt->bind_param("sisiis",$two, $three, $four, $five, $six, $one);
 
       $stmt->execute();
 
@@ -109,7 +112,7 @@
     }
 
     public function search($data) {
-      $sql = "SELECT * from tb WHERE two LIKE ?";
+      $sql = "SELECT * from tb INNER JOIN table1 ON tb.five = table1.one1 WHERE two LIKE ?";
       $stmt = $this->connection->prepare($sql);
       if (!$stmt) {
           echo "SQL Error: " . $this->connection->error;
@@ -125,7 +128,7 @@
       $Arrays = [];
       while($row = mysqli_fetch_assoc($result)){
         $Arrays [] = new E_($row['one'], $row['two'], $row['three'],
-         $row['four'], $row['five']);
+        $row['four'], new E_1($row['one1'], $row['two1']), $row['six']);
       }
       $stmt->close();
       return $Arrays;
@@ -144,13 +147,13 @@
           case 'two':
               $column = $searchBy;
               $paramType = "s";
-              $sql = "SELECT * FROM tb WHERE $column LIKE ?";
+              $sql = "SELECT * FROM tb INNER JOIN table1 ON tb.five = table1.one1 WHERE $column LIKE ?";
               $data = "%" . $data . "%";
               break;
           case 'three':
               $column = "three";
               $paramType = "i";
-              $sql = "SELECT * FROM tb WHERE $column = ?";
+              $sql = "SELECT * FROM tb INNER JOIN table1 ON tb.five = table1.one1 WHERE $column = ?";
               break;
           default:
               echo "Invalid";
@@ -171,7 +174,7 @@
       $Arrays = [];
       while($row = mysqli_fetch_assoc($result)){
         $Arrays [] = new E_($row['one'], $row['two'], $row['three'],
-         $row['four'], $row['five']);
+        $row['four'], new E_1($row['one1'], $row['two1']), $row['six']);
       }
       $stmt->close();
       return $Arrays;

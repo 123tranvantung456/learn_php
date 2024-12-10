@@ -30,9 +30,6 @@
             break;
           case 'list':
             $this->listAll();
-            break;
-          case 'detail':
-            $this->detail();
             break;    
           case 'search':
             $this->search();  
@@ -65,9 +62,10 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $userLogin =  $this->model->login($username, $password);
+        echo $userLogin->getOne();
         if($userLogin){  
           $_SESSION['user'] = $userLogin->getOne();
-          header("Location: ../Controller/C_.php?action=list");
+          header("Location: ../Controller/C_.php?action=search");
           exit();
         }else{
           header("Location: ../Controller/C_.php?action=login-failed");
@@ -106,15 +104,6 @@
       include_once("../View/List.php");
     }
 
-    public function detail(){
-      // $this->checkLogin();
-      if (isset($_GET['one'])) {
-        $one = $_GET['one'];
-        $bean = $this->model->getDetail($one);
-        include_once("../View/Detail.php");
-      }
-    }
-
     public function search(){
       // $this->checkLogin();
       $searchType = isset($_GET['searchType']) ? $_GET['searchType'] : '';
@@ -131,8 +120,9 @@
         $three = $_POST['three'];
         $four = $_POST['four'];
         $five = $_POST['five'];
+        $six = $_POST['six'];
         $bean = new E_($one, $two, $three, $four, 
-          $five
+          new E_1($five, ""), $six
         );
         $this->model->Add($bean);
         header("Location: ../Controller/C_.php?action=list");
@@ -166,9 +156,9 @@
         $three = $_POST['three'];
         $four = $_POST['four'];
         $five = $_POST['five'];
-        
+        $six = $_POST['six'];
         $bean = new E_($one, $two, $three, $four, 
-          $five
+          new E_1($five, ""), $six
         );
         $this->model->update($bean);
         header("Location: ../Controller/C_.php?action=list");

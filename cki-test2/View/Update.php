@@ -56,15 +56,11 @@
             <label for="three">three:</label>
             <input type="number" id="three" name="three" value="<?php echo $bean->getThree(); ?>">
         </div>
+
         <div>
             <label for="four">four:</label>
-            <input type="datetime-local" id="four" name="four" value = "<?php echo $bean->getFour(); ?>">
-        </div>
-
-        <!-- <div>
-            <label for="four">four:</label>
             <input type="date" id="four" name="four" value="<?php echo $bean->getFour(); ?>">
-        </div> -->
+        </div>
 
 
         <div>
@@ -72,16 +68,40 @@
             <select id="five" name="five">
                 <?php foreach ($bean1s as $bean1): ?>
 
-                    <option value="<?php echo $bean1->getOne(); ?>"
-                    <?php echo ($bean1->getOne() === $bean->getFive()) ? 'selected' : ''; ?>
+                    <option value="<?php echo $bean1->getOne1(); ?>"
+                    <?php echo ($bean1->getOne1() === $bean->getFive()) ? 'selected' : ''; ?>
                     >
-                        <?php echo $bean1->getTwo(); ?>
+                        <?php echo $bean1->getTwo1(); ?>
                     </option>
                 
                 <?php endforeach; ?>
             </select>
         </div>
+        
+        <div class="radio-container">
+            <label for="six">Six:</label>
+            <input type="radio" id="male" name="six" value="1"style=" padding: 0;
+                margin: 0;
+                display: inline;
+                width: 3%;" <?php echo ($bean->getSix() == 1) ? 'checked' : ''; ?>>
+            <label for="male" style=" padding: 0;
+                margin: 0;
+                display: inline;
+                width: 3%;">Nam</label>
+            
+            <br>
 
+            <input type="radio" id="female" name="six" value="0" style=" padding: 0;
+                margin: 0;
+                display: inline;
+                width: 3%;" <?php echo ($bean->getSix() == 0) ? 'checked' : ''; ?>>
+            <label for="female"style=" padding: 0;
+                margin: 0;
+                display: inline;
+                width: 3%;">Nữ</label>
+            <br>
+            <br>
+        </div>
 
         <div>
             <button type="submit">Update</button>

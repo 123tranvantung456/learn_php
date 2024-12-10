@@ -3,15 +3,17 @@ class E_{
   private $one; // id
   private $two; // varchar
   private $three; // int
-  private $four; // date time
-  private $five; // pk
+  private $four; // date
+  private $five; // bean con lai
+  private $six; // boolean
   
-  public function __construct($one, $two, $three, $four, $five){
+  public function __construct($one, $two, $three, $four, $five, $six){
     $this->one = $one;
     $this->two = $two;
     $this->three = $three;
     $this->four = $four;
     $this->five = $five;
+    $this->six = $six;
   }
 
   public function getOne(){
@@ -32,6 +34,10 @@ class E_{
 
   public function getFive(){
     return $this->five;
+  }
+
+  public function getSix(){
+    return $this->six;
   }
 }
 ?>

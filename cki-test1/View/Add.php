@@ -9,17 +9,17 @@
 </head>
 <body>
 <script>
-        function checkUsernameExistence() {
-            const username = document.getElementById("username").value;
+        function checkExistence() {
+            const one = document.getElementById("one").value;
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `../Controller/C_User.php?action=check-exist-username&username=${username}`, true);
+            xhr.open('GET', `../Controller/C_.php?action=check-exist-one&one=${one}`, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     const response = xhr.responseText;
                     if (response === "exists") {
-                        alert("Username already exists. Please choose a different username.");
+                        alert("one already exists.");
                         e.preventDefault();
                         return true;
                     } else {
@@ -30,9 +30,9 @@
 
             xhr.send();
         }
-    </script>
+</script>
 
-<script>
+<!-- <script>
         function validateForm(event) {
             const password = document.getElementById("pass").value;
             const confirmPassword = document.getElementById("conpass").value;
@@ -82,33 +82,52 @@
 
             return true; 
         }
-    </script>
+    </script> -->
+    
+    <!-- onsubmit="return validateForm(event) -->
+    <form action="../Controller/C_.php?action=add" method="post" ">
+        <h2>ADD</h2>
+        <div>
+            <label for="one">one:</label>
+            <input type="text" id="one" name="one" onblur="checkExistence()"  required>
+        </div>
+        <div>
+            <label for="two">two:</label>
+            <input type="text" id="two" name="two">
+        </div>
+        <div>
+            <label for="three">three:</label>
+            <input type="number" id="three" name="three">
+        </div>
+        <div>
+            <label for="four">four:</label>
+            <input type="datetime-local" id="four" name="four">
+        </div>
 
-    <form action="../Controller/C_User.php?action=register" method="post" onsubmit="return validateForm(event)">
-        <h2>Register</h2>
+        <!-- <div>
+            <label for="four">four:</label>
+            <input type="date" id="four" name="four">
+        </div> -->
+
+
         <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" onblur="checkUsernameExistence()" required>
+            <label for="five">five:</label>
+            <select id="five" name="five">
+                <?php foreach ($bean1s as $bean1): ?>
+
+                    <option value="<?php echo $bean1->getOne(); ?>">
+                        <?php echo $bean1->getTwo(); ?>
+                    </option>
+                
+                <?php endforeach; ?>
+            </select>
         </div>
+
+
         <div>
-            <label for="pass">Password:</label>
-            <input type="password" id="pass" name="password">
-        </div>
-        <div>
-            <label for="conpass">Confirm Password:</label>
-            <input type="password" id="conpass" name="confirmPassword">
-        </div>
-        <div>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName">
-        </div>
-        <div>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName">
-        </div>
-        <div>
-            <button type="submit">Register</button>
+            <button type="submit">ADD</button>
         </div>
     </form>
+
 </body>
 </html>
