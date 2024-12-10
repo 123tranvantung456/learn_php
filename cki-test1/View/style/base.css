@@ -1,0 +1,16 @@
+button {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px; 
+  border: none; 
+}
+
+a{
+  /* text-decoration: none; */
+  color: blue;
+  font-style: italic;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
