@@ -1,0 +1,29 @@
+.search input{
+  padding: 8px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.no-data {
+  text-align: center;
+  font-style: italic;
+  font-weight: 600;
+  color: red;
+}
